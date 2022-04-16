@@ -1,6 +1,6 @@
 package com.arshalif.paysera.view.di
 
-import com.arshalif.paysera.data.BalanceRepositoryImpl
+import com.arshalif.paysera.data.repositories.BalanceRepositoryImpl
 import com.arshalif.paysera.domain.repositories.BalanceRepository
 import dagger.Binds
 import dagger.Module

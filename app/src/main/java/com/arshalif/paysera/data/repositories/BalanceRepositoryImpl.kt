@@ -1,4 +1,4 @@
-package com.arshalif.paysera.data
+package com.arshalif.paysera.data.repositories
 
 import com.arshalif.paysera.data.db.Balance
 import com.arshalif.paysera.data.db.entity.fromBalance
