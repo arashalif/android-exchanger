@@ -27,7 +27,7 @@ class ExchangeViewModel @Inject constructor(private val balanceRepository: Balan
             _balancesState.emit(ResultState.Loading)
             when (val fetchedResult = balanceRepository.fetchBalances()) {
                 is ResultState.Success -> {
-//                    _balancesState.emit(ResultState.Success(fetchedResult.data))
+
                 }
                 is ResultState.Error -> {
                     _balancesState.emit(fetchedResult)
