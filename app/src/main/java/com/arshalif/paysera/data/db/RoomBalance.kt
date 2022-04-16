@@ -1,25 +1,28 @@
 package com.arshalif.paysera.data.db
 
+import com.arshalif.paysera.data.db.daos.BalanceDAOs
 import com.arshalif.paysera.data.db.entity.BalanceEntity
+import javax.inject.Inject
 
-class RoomBalance : Balance {
+class RoomBalance @Inject constructor(private val balanceDAOs: BalanceDAOs) : Balance {
+
     override suspend fun getBalances(): List<BalanceEntity> {
-        TODO("Not yet implemented")
+        return balanceDAOs.fetchAllBalances()
     }
 
     override suspend fun storeBalances(balances: List<BalanceEntity>) {
-        TODO("Not yet implemented")
+        balanceDAOs.insertBalances(balances)
     }
 
     override suspend fun storeBalance(balance: BalanceEntity) {
-        TODO("Not yet implemented")
+        balanceDAOs.insertBalance(balance)
     }
 
     override suspend fun getBalance(type: String): BalanceEntity {
-        TODO("Not yet implemented")
+        return balanceDAOs.fetchBalance(type)
     }
 
     override suspend fun deleteAll() {
-        TODO("Not yet implemented")
+        balanceDAOs.deleteBalances()
     }
 }

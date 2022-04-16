@@ -12,5 +12,4 @@ import com.arshalif.paysera.data.db.entity.BalanceEntity
 )
 abstract class BalanceDataBase : RoomDatabase() {
     abstract fun balancesDao(): BalanceDAOs
-
 }
