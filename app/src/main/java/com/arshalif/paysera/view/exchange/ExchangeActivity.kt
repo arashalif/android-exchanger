@@ -1,12 +1,12 @@
-package com.arshalif.paysera.view
+package com.arshalif.paysera.view.exchange
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.arshalif.paysera.R
 
-class MainActivity : AppCompatActivity() {
+class ExchangeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_exchange)
     }
 }
