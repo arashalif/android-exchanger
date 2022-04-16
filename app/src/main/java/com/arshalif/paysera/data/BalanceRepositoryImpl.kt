@@ -6,8 +6,10 @@ import com.arshalif.paysera.data.db.entity.toBalance
 import com.arshalif.paysera.data.db.entity.toBalanceList
 import com.arshalif.paysera.domain.model.BalanceCurrency
 import com.arshalif.paysera.domain.repositories.BalanceRepository
+import dagger.hilt.android.scopes.ActivityRetainedScoped
 import javax.inject.Inject
 
+@ActivityRetainedScoped
 class BalanceRepositoryImpl @Inject constructor(private val balance: Balance) : BalanceRepository {
 
     override suspend fun fetchBalance(type: String): BalanceCurrency {
