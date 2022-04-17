@@ -28,12 +28,18 @@ class ExchangeActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initUI()
+        observer()
 
-        observerBalance()
+
     }
 
+    private fun observer() {
+        observerBalance()
+        observerRatio()
+    }
+
+
     private fun initUI() {
-        initSpinner()
         initBalanceList()
     }
 
@@ -42,6 +48,25 @@ class ExchangeActivity : AppCompatActivity() {
             layoutManager =
                 LinearLayoutManager(this@ExchangeActivity, LinearLayoutManager.HORIZONTAL, false)
             adapter = BalanceAdapter(this@ExchangeActivity, viewModel.balances)
+        }
+    }
+
+
+    private fun observerRatio() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.ratiosState.collect {
+                    when (it) {
+                        is ResultState.Error -> {
+                            showError(it.message)
+                        }
+                        is ResultState.Loading -> {}
+                        is ResultState.Success -> {
+                            initSpinner(it.data.keys.toList())
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -66,11 +91,11 @@ class ExchangeActivity : AppCompatActivity() {
         }
     }
 
-    private fun initSpinner() {
+    private fun initSpinner(provinceList: List<String>) {
 
-        val provinceList = listOf(
-            "EUR", "USD", "IRR", "TRK", "GPI", "LIR"
-        )
+//        val provinceList = listOf(
+//            "EUR", "USD", "IRR", "TRK", "GPI", "LIR"
+//        )
 
         binding.actExchangeSpReceive.setSelection(0)
         binding.actExchangeSpSell.setSelection(0)
