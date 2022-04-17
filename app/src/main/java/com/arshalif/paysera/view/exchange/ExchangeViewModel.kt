@@ -3,7 +3,7 @@ package com.arshalif.paysera.view.exchange
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.arshalif.paysera.domain.model.BalanceCurrency
-import com.arshalif.paysera.domain.repositories.BalanceRepository
+import com.arshalif.paysera.domain.usecases.MyBalanceUseCase
 import com.arshalif.paysera.view.model.ResultState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ExchangeViewModel @Inject constructor(private val balanceRepository: BalanceRepository) :
+class ExchangeViewModel @Inject constructor(private val myBalanceUseCase: MyBalanceUseCase) :
     ViewModel() {
 
     val balances = ArrayList<BalanceCurrency>()
@@ -30,7 +30,7 @@ class ExchangeViewModel @Inject constructor(private val balanceRepository: Balan
     fun fetchBalances() {
         viewModelScope.launch {
             _balancesState.emit(ResultState.Loading)
-            when (val fetchedResult = balanceRepository.fetchBalances()) {
+            when (val fetchedResult = myBalanceUseCase()) {
                 is ResultState.Success -> {
                     balances.clear()
                     balances.addAll(fetchedResult.data)

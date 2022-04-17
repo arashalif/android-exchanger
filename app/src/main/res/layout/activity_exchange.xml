@@ -150,7 +150,7 @@
                         android:src="@drawable/svg_receive" />
 
                     <TextView
-                        style="@style/body1"
+                        style="@style/body2"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginHorizontal="@dimen/marginHorizontal"
