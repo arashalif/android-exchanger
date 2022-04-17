@@ -3,6 +3,7 @@ package com.arshalif.paysera.view.exchange
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.arshalif.paysera.data.db.Balance
+import com.arshalif.paysera.domain.model.BalanceCurrency
 import com.arshalif.paysera.domain.repositories.BalanceRepository
 import com.arshalif.paysera.view.model.ResultState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,11 +16,15 @@ import javax.inject.Inject
 class ExchangeViewModel @Inject constructor(private val balanceRepository: BalanceRepository) :
     ViewModel() {
 
-    val balances = ArrayList<Balance>()
-    private val _balancesState: MutableStateFlow<ResultState<List<Balance>>> =
+    init {
+        fetchBalances()
+    }
+
+    val balances = ArrayList<BalanceCurrency>()
+    private val _balancesState: MutableStateFlow<ResultState<List<BalanceCurrency>>> =
         MutableStateFlow(ResultState.Loading)
 
-    val balancesState: StateFlow<ResultState<List<Balance>>>
+    val balancesState: StateFlow<ResultState<List<BalanceCurrency>>>
         get() = _balancesState
 
     fun fetchBalances() {
@@ -27,7 +32,9 @@ class ExchangeViewModel @Inject constructor(private val balanceRepository: Balan
             _balancesState.emit(ResultState.Loading)
             when (val fetchedResult = balanceRepository.fetchBalances()) {
                 is ResultState.Success -> {
-
+                    balances.clear()
+                    balances.addAll(fetchedResult.data)
+                    _balancesState.emit(ResultState.Success(balances))
                 }
                 is ResultState.Error -> {
                     _balancesState.emit(fetchedResult)

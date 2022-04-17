@@ -4,14 +4,13 @@ pluginManagement {
         google()
         mavenCentral()
     }
-    plugins{
-        id 'org.jetbrains.kotlin.android' version '1.6.20'
+    plugins {
         id "org.jetbrains.kotlin.kapt" version "1.6.20"
-        id  'dagger.hilt.android.plugin'
+        id 'dagger.hilt.android.plugin'
     }
     resolutionStrategy {
         eachPlugin {
-            if( requested.id.id == 'dagger.hilt.android.plugin') {
+            if (requested.id.id == 'dagger.hilt.android.plugin') {
                 useModule("com.google.dagger:hilt-android-gradle-plugin:2.38.1")
             }
         }

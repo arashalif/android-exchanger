@@ -1,6 +1,7 @@
 package com.arshalif.paysera.data.repositories
 
 import com.arshalif.paysera.data.db.Balance
+import com.arshalif.paysera.data.db.entity.BalanceEntity
 import com.arshalif.paysera.data.db.entity.fromBalance
 import com.arshalif.paysera.data.db.entity.toBalance
 import com.arshalif.paysera.data.db.entity.toBalanceList
@@ -8,6 +9,7 @@ import com.arshalif.paysera.domain.model.BalanceCurrency
 import com.arshalif.paysera.domain.repositories.BalanceRepository
 import com.arshalif.paysera.view.model.ResultState
 import dagger.hilt.android.scopes.ActivityRetainedScoped
+import java.math.BigDecimal
 import javax.inject.Inject
 
 @ActivityRetainedScoped
@@ -18,6 +20,15 @@ class BalanceRepositoryImpl @Inject constructor(private val balance: Balance) : 
     }
 
     override suspend fun fetchBalances(): ResultState<List<BalanceCurrency>> {
+        val response = balance.getBalances().toBalanceList()
+
+//      It's First Time Launch App and starting balance is 1000 Euros (EUR)
+        if (response.isNullOrEmpty()) {
+            val initialBalance = BalanceEntity("EUR", BigDecimal.valueOf(1000.00))
+            balance.storeBalance(initialBalance)
+            return ResultState.Success(listOf(initialBalance).toBalanceList())
+        }
+
         return ResultState.Success(balance.getBalances().toBalanceList())
     }
 

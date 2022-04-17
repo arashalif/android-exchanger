@@ -55,11 +55,18 @@
                     android:textColor="@color/body_carbon_light" />
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/act_exchange_rvBalance"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/item_balance" />
+
+                <ProgressBar
+                    android:id="@+id/act_exchange_pbBalance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"/>
             </LinearLayout>
 
             <LinearLayout
@@ -105,7 +112,8 @@
                         android:layout_marginHorizontal="@dimen/paddingSize"
                         android:layout_weight="1"
                         android:background="#00000000"
-                        android:gravity="end|center_vertical" />
+                        android:gravity="end|center_vertical"
+                        android:inputType="numberDecimal" />
 
                     <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
                         android:id="@+id/act_exchange_spSell"
