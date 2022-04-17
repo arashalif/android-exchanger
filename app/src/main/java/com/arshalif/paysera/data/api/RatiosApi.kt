@@ -10,5 +10,5 @@ interface RatiosApi {
     @GET(ApiConstants.LATEST_API)
     suspend fun getRatio(
         @QueryMap payload: HashMap<String, String>
-    ): Response<RatioResponse>
+    ): RatioResponse
 }
