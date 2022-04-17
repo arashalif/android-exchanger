@@ -2,7 +2,6 @@ package com.arshalif.paysera.view.exchange
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.arshalif.paysera.data.db.Balance
 import com.arshalif.paysera.domain.model.BalanceCurrency
 import com.arshalif.paysera.domain.repositories.BalanceRepository
 import com.arshalif.paysera.view.model.ResultState
@@ -16,16 +15,17 @@ import javax.inject.Inject
 class ExchangeViewModel @Inject constructor(private val balanceRepository: BalanceRepository) :
     ViewModel() {
 
-    init {
-        fetchBalances()
-    }
-
     val balances = ArrayList<BalanceCurrency>()
+
     private val _balancesState: MutableStateFlow<ResultState<List<BalanceCurrency>>> =
         MutableStateFlow(ResultState.Loading)
 
     val balancesState: StateFlow<ResultState<List<BalanceCurrency>>>
         get() = _balancesState
+
+    init {
+        fetchBalances()
+    }
 
     fun fetchBalances() {
         viewModelScope.launch {

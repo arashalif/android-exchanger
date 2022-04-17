@@ -22,7 +22,7 @@ class BalanceAdapter(
     inner class BalanceViewHolder(private val viewBinding: ViewBinding) : ViewHolder(viewBinding) {
         override fun bind(balanceCurrency: BalanceCurrency) {
             (viewBinding as? ItemBalanceBinding)?.apply {
-                itemBalanceTxtValue.text = "${balanceCurrency.value} ${balanceCurrency.value}"
+                itemBalanceTxtValue.text = "${balanceCurrency.value} ${balanceCurrency.type}"
             }
         }
     }
