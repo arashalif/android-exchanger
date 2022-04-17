@@ -1,9 +1,10 @@
 package com.arshalif.paysera.view.exchange
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
 import androidx.activity.viewModels
-import com.arshalif.paysera.R
+import androidx.appcompat.app.AppCompatActivity
 import com.arshalif.paysera.databinding.ActivityExchangeBinding
 
 class ExchangeActivity : AppCompatActivity() {
@@ -16,5 +17,30 @@ class ExchangeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityExchangeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        initSpinner()
+    }
+
+    private fun initSpinner() {
+
+        val provinceList = listOf(
+            "EUR", "USD", "IRR", "TRK", "GPI", "LIR"
+        )
+
+        binding.actExchangeSpReceive.setSelection(0)
+        binding.actExchangeSpSell.setSelection(0)
+        binding.actExchangeSpReceive.item = provinceList
+        binding.actExchangeSpSell.item = provinceList
+        binding.actExchangeSpReceive.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    adapterView: AdapterView<*>,
+                    view: View,
+                    position: Int,
+                    id: Long
+                ) {
+                }
+
+                override fun onNothingSelected(adapterView: AdapterView<*>) {}
+            }
     }
 }

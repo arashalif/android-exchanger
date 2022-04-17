@@ -4,4 +4,6 @@
     <string name="my_balances">MY BALANCES</string>
     <string name="currency_exchange">CURRENCY EXCHANGE</string>
     <string name="submit">SUBMIT</string>
+    <string name="sell">Sell</string>
+    <string name="receive">Receive</string>
 </resources>

@@ -96,14 +96,38 @@
                         android:layout_height="match_parent"
                         android:layout_marginHorizontal="@dimen/marginHorizontal"
                         android:gravity="center_vertical"
-                        android:text="Sell" />
+                        android:text="@string/sell" />
 
                     <EditText
+                        style="@style/body1_e"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:layout_marginHorizontal="@dimen/paddingSize"
                         android:layout_weight="1"
                         android:background="#00000000"
-                        android:gravity="right" />
+                        android:gravity="end|center_vertical" />
+
+                    <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+                        android:id="@+id/act_exchange_spSell"
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
+                        app:smsp_enableFloatingLabel="false"
+                        app:smsp_enableSearchHeader="true"
+                        app:smsp_floatingLabelColor="@color/body_carbon_dark"
+                        app:smsp_floatingLabelText="Floating Label Text"
+                        app:smsp_hint=""
+                        app:smsp_isSearchable="true"
+                        app:smsp_itemColor="@color/body_carbon"
+                        app:smsp_itemListColor="@color/body_carbon"
+                        app:smsp_itemSize="16sp"
+                        app:smsp_searchHeaderBackgroundColor="@color/colorPrimary"
+                        app:smsp_searchHeaderText="Please Select/Search Currency"
+                        app:smsp_searchHint="Search Currency"
+                        app:smsp_searchHintColor="@color/body_carbon_light"
+                        app:smsp_searchTextColor="@color/body_carbon"
+                        app:smsp_selectedItemListColor="@color/body_carbon_dark"
+                        app:smsp_underlineColor="@color/white"
+                        app:smsp_underlineSize="0dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -118,19 +142,43 @@
                         android:src="@drawable/svg_receive" />
 
                     <TextView
-                        style="@style/body2"
+                        style="@style/body1"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginHorizontal="@dimen/marginHorizontal"
                         android:gravity="center_vertical"
-                        android:text="Receive" />
+                        android:text="@string/receive" />
 
                     <TextView
+                        style="@style/body1"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:layout_marginHorizontal="@dimen/paddingSize"
                         android:layout_weight="1"
                         android:background="#00000000"
-                        android:gravity="right" />
+                        android:gravity="end|center_vertical" />
+
+                    <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+                        android:id="@+id/act_exchange_spReceive"
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
+                        app:smsp_enableFloatingLabel="false"
+                        app:smsp_enableSearchHeader="true"
+                        app:smsp_floatingLabelColor="@color/body_carbon_dark"
+                        app:smsp_floatingLabelText="Floating Label Text"
+                        app:smsp_hint=""
+                        app:smsp_isSearchable="true"
+                        app:smsp_itemColor="@color/body_carbon"
+                        app:smsp_itemListColor="@color/body_carbon"
+                        app:smsp_itemSize="16sp"
+                        app:smsp_searchHeaderBackgroundColor="@color/colorPrimary"
+                        app:smsp_searchHeaderText="Please Select/Search Currency"
+                        app:smsp_searchHint="Search Currency"
+                        app:smsp_searchHintColor="@color/body_carbon_light"
+                        app:smsp_searchTextColor="@color/body_carbon"
+                        app:smsp_selectedItemListColor="@color/body_carbon_dark"
+                        app:smsp_underlineColor="@color/white"
+                        app:smsp_underlineSize="0dp" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
