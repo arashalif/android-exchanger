@@ -24,102 +24,128 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.10" />
+        app:layout_constraintGuide_percent="0.15" />
 
-    <LinearLayout
-        android:id="@+id/act_exchange_lytBalance"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/paddingSize"
-        android:orientation="vertical"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/act_exchange_txtSubmit"
         app:layout_constraintTop_toBottomOf="@id/act_exchange_GLHeader">
 
-        <TextView
-            android:id="@+id/act_exchange_txtTitleBalance"
-            style="@style/caption"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/paddingSize"
-            android:text="@string/my_balances"
-            android:textColor="@color/body_carbon_light" />
+            android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_balance" />
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/act_exchange_lytBalance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/paddingSize"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/act_exchange_GLHeader">
 
-    <LinearLayout
-        android:id="@+id/act_exchange_lytExchange"
+                <TextView
+                    android:id="@+id/act_exchange_txtTitleBalance"
+                    style="@style/caption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/paddingSize"
+                    android:text="@string/my_balances"
+                    android:textColor="@color/body_carbon_light" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_balance" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/act_exchange_lytExchange"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/paddingSize"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/act_exchange_lytBalance">
+
+                <TextView
+                    android:id="@+id/act_exchange_txtTitleExchange"
+                    style="@style/caption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/paddingSize"
+                    android:text="@string/currency_exchange"
+                    android:textColor="@color/body_carbon_light" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/paddingSize"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:src="@drawable/svg_sell" />
+
+                    <TextView
+                        style="@style/body2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="@dimen/marginHorizontal"
+                        android:gravity="center_vertical"
+                        android:text="Sell" />
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#00000000"
+                        android:gravity="right" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/paddingSize"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:src="@drawable/svg_receive" />
+
+                    <TextView
+                        style="@style/body2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="@dimen/marginHorizontal"
+                        android:gravity="center_vertical"
+                        android:text="Receive" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#00000000"
+                        android:gravity="right" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/act_exchange_txtSubmit"
+        style="@style/button_e"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/paddingSize"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/act_exchange_lytBalance">
-
-        <TextView
-            android:id="@+id/act_exchange_txtTitleExchange"
-            style="@style/caption"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/paddingSize"
-            android:text="@string/currency_exchange"
-            android:textColor="@color/body_carbon_light" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/paddingSize"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:src="@drawable/svg_sell" />
-
-            <TextView
-                style="@style/body2"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="@dimen/marginHorizontal"
-                android:gravity="center_vertical"
-                android:text="Sell" />
-
-            <EditText
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="#00000000"
-                android:gravity="center" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/paddingSize"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:src="@drawable/svg_receive" />
-
-            <TextView
-                style="@style/body2"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="@dimen/marginHorizontal"
-                android:gravity="center_vertical"
-                android:text="Receive" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="#00000000"
-                android:gravity="center" />
-        </LinearLayout>
-    </LinearLayout>
+        android:background="@drawable/bg_button_submit"
+        android:gravity="center"
+        android:padding="@dimen/paddingSize"
+        android:text="@string/submit"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

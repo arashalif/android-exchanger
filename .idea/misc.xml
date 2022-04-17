@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/bg_button_submit.xml" value="0.2395" />
         <entry key="app/src/main/res/drawable/svg_recive.xml" value="0.182" />
         <entry key="app/src/main/res/drawable/svg_sell.xml" value="0.2395" />
         <entry key="app/src/main/res/layout/activity_exchange.xml" value="0.335" />
