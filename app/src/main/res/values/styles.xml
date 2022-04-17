@@ -9,4 +9,137 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
     </style>
 
+    <!-- Base TypoGraphi application  -->
+    <style name="headline3">
+        <item name="android:textSize">48sp</item>
+        <item name="android:textColor">@color/body_carbon</item>
+        <item name="fontWeight">400</item>
+    </style>
+
+    <style name="headline3_e">
+        <item name="android:textSize">48sp</item>
+        <item name="android:textColor">@color/body_carbon</item>
+        <item name="fontWeight">700</item>
+    </style>
+
+    <style name="headline4">
+        <item name="android:textSize">34sp</item>
+        <item name="android:textColor">@color/body_carbon</item>
+        <item name="fontWeight">400</item>
+    </style>
+
+    <style name="headline4_e">
+        <item name="android:textSize">34sp</item>
+        <item name="android:textColor">@color/body_carbon</item>
+        <item name="fontWeight">700</item>
+    </style>
+
+    <style name="headline5">
+        <item name="android:textSize">23sp</item>
+        <item name="android:textColor">@color/body_carbon</item>
+        <item name="fontWeight">400</item>
+    </style>
+
+    <style name="headline5_e">
+        <item name="android:textSize">23sp</item>
+        <item name="android:textColor">@color/body_carbon</item>
+        <item name="fontWeight">700</item>
+    </style>
+
+    <style name="headline6">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/body_carbon</item>
+        <item name="fontWeight">400</item>
+    </style>
+
+    <style name="headline6_e">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/body_carbon</item>
+        <item name="fontWeight">700</item>
+    </style>
+
+    <style name="subtitle1">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/body_carbon</item>
+        <item name="fontWeight">400</item>
+    </style>
+
+    <style name="subtitle1_e">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/body_carbon</item>
+        <item name="fontWeight">700</item>
+    </style>
+
+    <style name="subtitle2">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/body_carbon</item>
+        <item name="fontWeight">400</item>
+    </style>
+
+    <style name="subtitle2_e">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/body_carbon</item>
+        <item name="fontWeight">700</item>
+    </style>
+
+    <style name="body1">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/body_carbon</item>
+        <item name="fontWeight">400</item>
+    </style>
+
+    <style name="body1_e">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/body_carbon</item>
+        <item name="fontWeight">700</item>
+    </style>
+
+    <style name="body2">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/body_carbon</item>
+        <item name="fontWeight">400</item>
+    </style>
+
+    <style name="body2_e">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/body_carbon</item>
+        <item name="fontWeight">700</item>
+    </style>
+
+    <style name="button">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/body_carbon</item>
+        <item name="fontWeight">400</item>
+    </style>
+
+    <style name="button_e">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/body_carbon</item>
+        <item name="fontWeight">700</item>
+    </style>
+
+    <style name="caption">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/body_carbon</item>
+        <item name="fontWeight">400</item>
+    </style>
+
+    <style name="caption_e">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/body_carbon</item>
+        <item name="fontWeight">400</item>
+    </style>
+
+    <style name="overline">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/body_carbon</item>
+        <item name="fontWeight">400</item>
+    </style>
+
+    <style name="overline_e">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/body_carbon</item>
+        <item name="fontWeight">700</item>
+    </style>
+
 </resources>

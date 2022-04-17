@@ -4,4 +4,13 @@
     <color name="colorPrimaryDark">#FF3700B3</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+
+    <color name="body_surface">#F9FAFB</color>
+    <color name="body_surface_light">#FFFFFF</color>
+    <color name="body_surface_dark">#F2F4F5</color>
+
+    <color name="body_carbon">#3A3D42</color>
+    <color name="body_carbon_light">#797C83</color>
+    <color name="body_carbon_dark">#181B1F</color>
 </resources>
