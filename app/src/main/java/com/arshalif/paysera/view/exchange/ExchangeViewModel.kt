@@ -110,4 +110,13 @@ class ExchangeViewModel @Inject constructor(
             )
         }
     }
+
+    fun submitExchange(
+        typeSell: String,
+        valueSell: String,
+        typeReceive: String,
+        valueReceive: String
+    ) {
+
+    }
 }

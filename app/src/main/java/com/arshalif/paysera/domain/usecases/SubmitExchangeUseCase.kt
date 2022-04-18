@@ -3,10 +3,10 @@ package com.arshalif.paysera.domain.usecases
 import com.arshalif.paysera.view.model.CurrencyRatioState
 import com.arshalif.paysera.view.model.CurrencyState
 import java.math.BigDecimal
-import java.math.RoundingMode
 import javax.inject.Inject
 
-class ExchangeUseCase @Inject constructor() {
+//todo : commision usecase must be inject
+class SubmitExchangeUseCase @Inject constructor() {
 
     suspend operator fun invoke(
         sell: CurrencyRatioState,
@@ -15,7 +15,7 @@ class ExchangeUseCase @Inject constructor() {
     ): CurrencyState {
 
         val newValue = (sell.currencyState.value * receiveRatio) / sell.ratio
-        val roundedValue = newValue.setScale(2, RoundingMode.FLOOR)
-        return CurrencyState(receiveType, roundedValue)
+
+        return CurrencyState(receiveType, newValue)
     }
 }

@@ -52,9 +52,20 @@ class ExchangeActivity : AppCompatActivity() {
         observer()
     }
 
-
     private fun initUI() {
         initBalanceList()
+        initSubmit()
+    }
+
+    private fun initSubmit() {
+        binding.actExchangeTxtSubmit.setOnClickListener {
+            viewModel.submitExchange(
+                binding.actExchangeSpSell.selectedItem.toString(),
+                binding.actExchangeEtExchange.text.toString(),
+                binding.actExchangeSpReceive.selectedItem.toString(),
+                binding.actExchangeTxtExchanged.text.toString()
+            )
+        }
     }
 
     private fun initBalanceList() {
