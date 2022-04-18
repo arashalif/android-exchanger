@@ -3,9 +3,11 @@ package com.arshalif.paysera.view.exchange
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.arshalif.paysera.domain.model.BalanceCurrency
-import com.arshalif.paysera.domain.model.Ratio
+import com.arshalif.paysera.domain.usecases.ExchangeUseCase
 import com.arshalif.paysera.domain.usecases.MyBalanceUseCase
 import com.arshalif.paysera.domain.usecases.RatioUseCase
+import com.arshalif.paysera.view.model.CurrencyRatioState
+import com.arshalif.paysera.view.model.CurrencyState
 import com.arshalif.paysera.view.model.ResultState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,11 +20,13 @@ import javax.inject.Inject
 @HiltViewModel
 class ExchangeViewModel @Inject constructor(
     private val myBalanceUseCase: MyBalanceUseCase,
-    private val ratioUseCase: RatioUseCase
+    private val ratioUseCase: RatioUseCase,
+    private val exchangeUseCase: ExchangeUseCase,
 ) :
     ViewModel() {
 
     val balances = ArrayList<BalanceCurrency>()
+    val ratios = HashMap<String, BigDecimal>()
 
     private val _balancesState: MutableStateFlow<ResultState<List<BalanceCurrency>>> =
         MutableStateFlow(ResultState.Loading)
@@ -36,6 +40,9 @@ class ExchangeViewModel @Inject constructor(
     val ratiosState: StateFlow<ResultState<HashMap<String, BigDecimal>>>
         get() = _ratiosState
 
+    var exchangeState: MutableStateFlow<Pair<CurrencyState, CurrencyState>?> =
+        MutableStateFlow(null)
+
     init {
         fetchBalances()
         fetchRatio()
@@ -46,11 +53,14 @@ class ExchangeViewModel @Inject constructor(
             ratioUseCase().collectLatest {
                 when (val fetchedResult = it) {
                     is ResultState.Success -> {
-                        _ratiosState.emit(ResultState.Success(fetchedResult.data))
+                        ratios.putAll(fetchedResult.data)
+                        _ratiosState.emit(ResultState.Success(ratios))
+
                     }
                     is ResultState.Error -> {
                         _ratiosState.emit(fetchedResult)
                     }
+                    ResultState.Loading -> {}
                 }
             }
         }
@@ -68,8 +78,36 @@ class ExchangeViewModel @Inject constructor(
                 is ResultState.Error -> {
                     _balancesState.emit(fetchedResult)
                 }
+                ResultState.Loading -> {}
             }
         }
     }
 
+    fun initExchange() {
+        if (ratios.isEmpty().not() && balances.isEmpty().not() && exchangeState.value == null) {
+            viewModelScope.launch {
+                exchangeState.emit(
+                    Pair(
+                        CurrencyState(balances.first().type, BigDecimal.valueOf(1.0)),
+                        CurrencyState(balances.first().type, BigDecimal.valueOf(1.0))
+                    )
+                )
+            }
+        }
+    }
+
+    fun updateExchange(typeSell: String, valueSell: String, typeReceive: String) {
+        viewModelScope.launch {
+            val sell = CurrencyState(typeSell, BigDecimal.valueOf(valueSell.toDouble()))
+            exchangeState.emit(
+                Pair(
+                    CurrencyState(typeSell, BigDecimal.valueOf(valueSell.toDouble())),
+                    exchangeUseCase(
+                        CurrencyRatioState(sell, ratios[typeSell]!!),
+                        typeReceive, ratios[typeReceive]!!
+                    )
+                )
+            )
+        }
+    }
 }

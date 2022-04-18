@@ -13,6 +13,7 @@ import com.arshalif.paysera.databinding.ActivityExchangeBinding
 import com.arshalif.paysera.view.model.ResultState
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -29,28 +30,98 @@ class ExchangeActivity : AppCompatActivity() {
 
         initUI()
         observer()
-
-
-    }
-
-    private fun observer() {
-        observerBalance()
-        observerRatio()
     }
 
 
     private fun initUI() {
         initBalanceList()
+        initTextInput()
+    }
+
+    private fun initTextInput() {
+        TODO("Not yet implemented")
     }
 
     private fun initBalanceList() {
         binding.actExchangeRvBalance.apply {
             layoutManager =
-                LinearLayoutManager(this@ExchangeActivity, LinearLayoutManager.HORIZONTAL, false)
+                LinearLayoutManager(
+                    this@ExchangeActivity,
+                    LinearLayoutManager.HORIZONTAL,
+                    false
+                )
             adapter = BalanceAdapter(this@ExchangeActivity, viewModel.balances)
         }
     }
 
+    private fun updateSpinner(provinceList: List<String>) {
+        binding.actExchangeSpReceive.item = provinceList
+        binding.actExchangeSpSell.item = provinceList
+        binding.actExchangeSpSell.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    adapterView: AdapterView<*>,
+                    view: View,
+                    position: Int,
+                    id: Long
+                ) {
+                    viewModel.updateExchange(
+                        provinceList[position],
+                        binding.actExchangeEtExchange.text.toString(),
+                        binding.actExchangeSpReceive.selectedItem.toString()
+                    )
+                }
+
+                override fun onNothingSelected(adapterView: AdapterView<*>) {}
+            }
+        binding.actExchangeSpReceive.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    adapterView: AdapterView<*>,
+                    view: View,
+                    position: Int,
+                    id: Long
+                ) {
+                    viewModel.updateExchange(
+                        binding.actExchangeSpSell.selectedItem.toString(),
+                        binding.actExchangeEtExchange.text.toString(),
+                        provinceList[position]
+                    )
+                }
+
+                override fun onNothingSelected(adapterView: AdapterView<*>) {}
+            }
+    }
+
+    private fun showError(message: String) {
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
+    }
+
+    private fun observer() {
+        observerBalance()
+        observerRatio()
+        observerExchange()
+    }
+
+    private fun observerExchange() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.exchangeState.collectLatest {
+                    it ?: return@collectLatest
+                    binding.actExchangeSpSell.setSelection(
+                        viewModel.ratios.keys.toList().indexOfFirst { temp ->
+                            temp == it.first.type
+                        })
+                    binding.actExchangeEtExchange.setText(it.first.value.toString())
+                    binding.actExchangeSpReceive.setSelection(
+                        viewModel.ratios.keys.toList().indexOfFirst { temp ->
+                            temp == it.second.type
+                        })
+                    binding.actExchangeTxtExchanged.text = it.second.value.toString()
+                }
+            }
+        }
+    }
 
     private fun observerRatio() {
         lifecycleScope.launch {
@@ -62,7 +133,8 @@ class ExchangeActivity : AppCompatActivity() {
                         }
                         is ResultState.Loading -> {}
                         is ResultState.Success -> {
-                            initSpinner(it.data.keys.toList())
+                            updateSpinner(it.data.keys.toList())
+                            viewModel.initExchange()
                         }
                     }
                 }
@@ -84,6 +156,7 @@ class ExchangeActivity : AppCompatActivity() {
                         is ResultState.Success -> {
                             binding.actExchangePbBalance.visibility = View.GONE
                             binding.actExchangeRvBalance.adapter?.notifyDataSetChanged()
+                            viewModel.initExchange()
                         }
                     }
                 }
@@ -91,31 +164,4 @@ class ExchangeActivity : AppCompatActivity() {
         }
     }
 
-    private fun initSpinner(provinceList: List<String>) {
-
-//        val provinceList = listOf(
-//            "EUR", "USD", "IRR", "TRK", "GPI", "LIR"
-//        )
-
-        binding.actExchangeSpReceive.setSelection(0)
-        binding.actExchangeSpSell.setSelection(0)
-        binding.actExchangeSpReceive.item = provinceList
-        binding.actExchangeSpSell.item = provinceList
-        binding.actExchangeSpReceive.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    adapterView: AdapterView<*>,
-                    view: View,
-                    position: Int,
-                    id: Long
-                ) {
-                }
-
-                override fun onNothingSelected(adapterView: AdapterView<*>) {}
-            }
-    }
-
-    private fun showError(message: String) {
-        Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
-    }
 }

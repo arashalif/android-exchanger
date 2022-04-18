@@ -1,13 +1,21 @@
 package com.arshalif.paysera.domain.usecases
 
-import com.arshalif.paysera.domain.repositories.RatioRepository
+import com.arshalif.paysera.view.model.CurrencyRatioState
+import com.arshalif.paysera.view.model.CurrencyState
+import java.math.BigDecimal
 import javax.inject.Inject
 
-class ExchangeUseCase @Inject constructor(
-    private val exchangeRepository: RatioRepository,
-    private val balanceExchangeRepository: RatioRepository
-) {
+//todo : commision usecase must be inject
+class ExchangeUseCase @Inject constructor() {
 
-    suspend operator fun invoke() = {
+    suspend operator fun invoke(
+        sell: CurrencyRatioState,
+        receiveType: String,
+        receiveRatio: BigDecimal,
+    ): CurrencyState {
+
+        val newValue = (sell.currencyState.value * receiveRatio) / sell.ratio
+
+        return CurrencyState(receiveType, newValue)
     }
 }

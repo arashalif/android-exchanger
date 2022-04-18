@@ -106,6 +106,7 @@
                         android:text="@string/sell" />
 
                     <EditText
+                        android:id="@+id/act_exchange_etExchange"
                         style="@style/body1_e"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -159,6 +160,7 @@
                         android:text="@string/receive" />
 
                     <TextView
+                        android:id="@+id/act_exchange_txtExchanged"
                         style="@style/body1"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
