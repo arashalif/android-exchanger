@@ -127,6 +127,24 @@ class ExchangeActivity : AppCompatActivity() {
         observerBalance()
         observerRatio()
         observerExchange()
+        observerSubmit()
+    }
+
+    private fun observerSubmit() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.submitState.collect {
+                    when (val data = it) {
+                        is ResultState.Error -> showError(data.message)
+                        ResultState.Loading -> {}
+                        is ResultState.Success -> {
+                            showError(data.data)
+                            viewModel.fetchBalances()
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun observerExchange() {

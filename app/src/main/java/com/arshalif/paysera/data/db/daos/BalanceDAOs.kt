@@ -21,7 +21,7 @@ interface BalanceDAOs {
     ): List<BalanceEntity>
 
     @Query("SELECT * FROM BalanceEntity WHERE type IS :type")
-    suspend fun fetchBalance(type: String): BalanceEntity
+    suspend fun fetchBalance(type: String): BalanceEntity?
 
     @Query("Delete FROM BalanceEntity")
     suspend fun deleteBalances(): Int

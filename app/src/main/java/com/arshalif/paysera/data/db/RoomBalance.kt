@@ -19,7 +19,7 @@ class RoomBalance @Inject constructor(private val balanceDAOs: BalanceDAOs) : Ba
         balanceDAOs.insertBalance(balance)
     }
 
-    override suspend fun getBalance(type: String): BalanceEntity {
+    override suspend fun getBalance(type: String): BalanceEntity? {
         return balanceDAOs.fetchBalance(type)
     }
 

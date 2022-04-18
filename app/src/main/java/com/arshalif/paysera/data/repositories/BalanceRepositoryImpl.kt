@@ -12,8 +12,8 @@ import javax.inject.Inject
 @ActivityRetainedScoped
 class BalanceRepositoryImpl @Inject constructor(private val balance: Balance) : BalanceRepository {
 
-    override suspend fun fetchBalance(type: String): ResultState<BalanceCurrency> {
-        return ResultState.Success(balance.getBalance(type).toBalance())
+    override suspend fun fetchBalance(type: String): ResultState<BalanceCurrency?> {
+        return ResultState.Success(balance.getBalance(type)?.toBalance())
     }
 
     override suspend fun fetchBalances(): ResultState<List<BalanceCurrency>> {
@@ -41,18 +41,22 @@ class BalanceRepositoryImpl @Inject constructor(private val balance: Balance) : 
         return fetchBalances()
     }
 
-    override suspend fun fetchNumberOfTransactions(): ResultState<Int> {
-        return ResultState.Success(balance.fetchNumberOfTransactions())
+    override suspend fun fetchNumberOfTransactions(): Int {
+        return balance.fetchNumberOfTransactions()
     }
 
     override suspend fun storeTransaction(
-        oldBalance: BalanceCurrency,
-        newBalance: BalanceCurrency
+        sellOldBalance: BalanceCurrency,
+        sellNewBalance: BalanceCurrency,
+        receiveOldBalance: BalanceCurrency,
+        receiveNewBalance: BalanceCurrency
     ): ResultState<List<BalanceCurrency>> {
         balance.storeTransaction(
             BalanceTransactionEntity(
-                oldBalance = oldBalance.fromBalance(),
-                newBalance = newBalance.fromBalance()
+                sellOldBalance = sellOldBalance.fromBalance(),
+                sellNewBalance = sellNewBalance.fromBalance(),
+                receiveOldBalance = receiveOldBalance.fromBalance(),
+                receiveNewBalance = receiveNewBalance.fromBalance(),
             )
         )
         return fetchBalances()

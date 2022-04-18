@@ -7,5 +7,6 @@ object ApiConstants {
 
     //    better come from pipeLine or affected from build variants
     const val API_KEY = "3ffe5f10ceba0de7fcea3398d4910974"
-    const val INTERVAL_RATIO = 1000 * 60 * 60 * 24L
+//    const val INTERVAL_RATIO = 1000 * 60 * 60 * 24L
+    const val INTERVAL_RATIO = 1000 * 5
 }

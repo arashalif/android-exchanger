@@ -4,8 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.arshalif.paysera.domain.model.BalanceCurrency
 import com.arshalif.paysera.domain.usecases.ExchangeUseCase
-import com.arshalif.paysera.domain.usecases.MyBalanceUseCase
+import com.arshalif.paysera.domain.usecases.MyBalancesUseCase
 import com.arshalif.paysera.domain.usecases.RatioUseCase
+import com.arshalif.paysera.domain.usecases.SubmitExchangeUseCase
 import com.arshalif.paysera.view.model.CurrencyRatioState
 import com.arshalif.paysera.view.model.CurrencyState
 import com.arshalif.paysera.view.model.ResultState
@@ -19,9 +20,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ExchangeViewModel @Inject constructor(
-    private val myBalanceUseCase: MyBalanceUseCase,
+    private val myBalanceUseCase: MyBalancesUseCase,
     private val ratioUseCase: RatioUseCase,
     private val exchangeUseCase: ExchangeUseCase,
+    private val submitExchangeUseCase: SubmitExchangeUseCase
 ) :
     ViewModel() {
 
@@ -42,6 +44,9 @@ class ExchangeViewModel @Inject constructor(
 
     var exchangeState: MutableStateFlow<Pair<CurrencyState, CurrencyState>?> =
         MutableStateFlow(null)
+
+    var submitState: MutableStateFlow<ResultState<String>> =
+        MutableStateFlow(ResultState.Loading)
 
     init {
         fetchBalances()
@@ -66,7 +71,7 @@ class ExchangeViewModel @Inject constructor(
         }
     }
 
-    private fun fetchBalances() {
+     fun fetchBalances() {
         viewModelScope.launch {
             _balancesState.emit(ResultState.Loading)
             when (val fetchedResult = myBalanceUseCase()) {
@@ -117,6 +122,8 @@ class ExchangeViewModel @Inject constructor(
         typeReceive: String,
         valueReceive: String
     ) {
-
+        viewModelScope.launch {
+            submitState.emit(submitExchangeUseCase(typeSell, valueSell, typeReceive, valueReceive))
+        }
     }
 }

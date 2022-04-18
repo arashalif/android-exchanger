@@ -10,7 +10,9 @@ import com.arshalif.paysera.data.db.converter.BigDecimalTypeConverter
 @TypeConverters(BigDecimalTypeConverter::class)
 data class BalanceTransactionEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
-    @Embedded val oldBalance: BalanceEntity,
-    @Embedded val newBalance: BalanceEntity
+    @Embedded(prefix = "sellOld_") val sellOldBalance: BalanceEntity,
+    @Embedded(prefix = "sellNew_") val sellNewBalance: BalanceEntity,
+    @Embedded(prefix = "receiveOld_") val receiveOldBalance: BalanceEntity,
+    @Embedded(prefix = "receiveNew_") val receiveNewBalance: BalanceEntity,
 )
 
