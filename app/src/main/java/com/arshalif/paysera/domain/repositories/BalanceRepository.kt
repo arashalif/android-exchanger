@@ -10,4 +10,10 @@ interface BalanceRepository {
         soldBalance: BalanceCurrency,
         boughtBalance: BalanceCurrency
     ): ResultState<List<BalanceCurrency>>
+
+    suspend fun fetchNumberOfTransactions(): ResultState<Int>
+    suspend fun storeTransaction(
+        oldBalance: BalanceCurrency,
+        newBalance: BalanceCurrency
+    ): ResultState<List<BalanceCurrency>>
 }

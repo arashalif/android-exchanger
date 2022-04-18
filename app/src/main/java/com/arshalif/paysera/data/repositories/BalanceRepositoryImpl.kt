@@ -1,10 +1,7 @@
 package com.arshalif.paysera.data.repositories
 
 import com.arshalif.paysera.data.db.Balance
-import com.arshalif.paysera.data.db.entity.BalanceEntity
-import com.arshalif.paysera.data.db.entity.fromBalance
-import com.arshalif.paysera.data.db.entity.toBalance
-import com.arshalif.paysera.data.db.entity.toBalanceList
+import com.arshalif.paysera.data.db.entity.*
 import com.arshalif.paysera.domain.model.BalanceCurrency
 import com.arshalif.paysera.domain.repositories.BalanceRepository
 import com.arshalif.paysera.view.model.ResultState
@@ -39,6 +36,23 @@ class BalanceRepositoryImpl @Inject constructor(private val balance: Balance) : 
         balance.storeBalances(
             listOf(
                 soldBalance.fromBalance(), boughtBalance.fromBalance()
+            )
+        )
+        return fetchBalances()
+    }
+
+    override suspend fun fetchNumberOfTransactions(): ResultState<Int> {
+        return ResultState.Success(balance.fetchNumberOfTransactions())
+    }
+
+    override suspend fun storeTransaction(
+        oldBalance: BalanceCurrency,
+        newBalance: BalanceCurrency
+    ): ResultState<List<BalanceCurrency>> {
+        balance.storeTransaction(
+            BalanceTransactionEntity(
+                oldBalance = oldBalance.fromBalance(),
+                newBalance = newBalance.fromBalance()
             )
         )
         return fetchBalances()

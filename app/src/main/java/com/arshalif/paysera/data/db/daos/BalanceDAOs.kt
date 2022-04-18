@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.arshalif.paysera.data.db.entity.BalanceEntity
+import com.arshalif.paysera.data.db.entity.BalanceTransactionEntity
 
 @Dao
 interface BalanceDAOs {
@@ -24,4 +25,10 @@ interface BalanceDAOs {
 
     @Query("Delete FROM BalanceEntity")
     suspend fun deleteBalances(): Int
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertBalanceTransaction(balance: BalanceTransactionEntity)
+
+    @Query("SELECT COUNT(id) FROM BalanceTransactionEntity")
+    suspend fun countBalanceTransaction(): Int
 }

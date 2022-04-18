@@ -2,6 +2,7 @@ package com.arshalif.paysera.data.db
 
 import com.arshalif.paysera.data.db.daos.BalanceDAOs
 import com.arshalif.paysera.data.db.entity.BalanceEntity
+import com.arshalif.paysera.data.db.entity.BalanceTransactionEntity
 import javax.inject.Inject
 
 class RoomBalance @Inject constructor(private val balanceDAOs: BalanceDAOs) : Balance {
@@ -24,5 +25,13 @@ class RoomBalance @Inject constructor(private val balanceDAOs: BalanceDAOs) : Ba
 
     override suspend fun deleteAll() {
         balanceDAOs.deleteBalances()
+    }
+
+    override suspend fun fetchNumberOfTransactions(): Int {
+        return balanceDAOs.countBalanceTransaction()
+    }
+
+    override suspend fun storeTransaction(transactionEntity: BalanceTransactionEntity) {
+        balanceDAOs.insertBalanceTransaction(transactionEntity)
     }
 }
