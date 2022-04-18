@@ -1,6 +1,8 @@
 package com.arshalif.paysera.view.exchange
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
 import androidx.activity.viewModels
@@ -23,6 +25,24 @@ class ExchangeActivity : AppCompatActivity() {
     private var _binding: ActivityExchangeBinding? = null
     private val binding get() = _binding!!
 
+    private val textWatch = object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+            if (viewModel.exchangeState.value != null) {
+                viewModel.updateExchange(
+                    binding.actExchangeSpSell.selectedItem.toString(),
+                    s.toString(),
+                    binding.actExchangeSpReceive.selectedItem.toString()
+                )
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityExchangeBinding.inflate(layoutInflater)
@@ -35,11 +55,6 @@ class ExchangeActivity : AppCompatActivity() {
 
     private fun initUI() {
         initBalanceList()
-        initTextInput()
-    }
-
-    private fun initTextInput() {
-        TODO("Not yet implemented")
     }
 
     private fun initBalanceList() {
@@ -107,6 +122,8 @@ class ExchangeActivity : AppCompatActivity() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.exchangeState.collectLatest {
+                    binding.actExchangeEtExchange.removeTextChangedListener(textWatch)
+
                     it ?: return@collectLatest
                     binding.actExchangeSpSell.setSelection(
                         viewModel.ratios.keys.toList().indexOfFirst { temp ->
@@ -118,6 +135,8 @@ class ExchangeActivity : AppCompatActivity() {
                             temp == it.second.type
                         })
                     binding.actExchangeTxtExchanged.text = it.second.value.toString()
+
+                    binding.actExchangeEtExchange.addTextChangedListener(textWatch)
                 }
             }
         }
